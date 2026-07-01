@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Prediction</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            <span>EduPredict AI</span>
+
+        </div>
+
+        <ul class="nav-links">
+
+            <li><a href="/">Home</a></li>
+
+            <li><a href="/predictdata">Predict</a></li>
+
+            <li><a href="/about">About</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <section class="hero">
+
+        <div class="hero-left">
+
+            <span class="badge">
+                AI Powered Prediction
+            </span>
+
+            <h1>
+
+                Student Performance
+
+                <br>
+
+                Prediction System
+
+            </h1>
+
+            <p>
+
+                Predict students' mathematics scores using
+                Machine Learning algorithms.
+
+                Fast, Accurate and Easy to Use.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/predictdata" class="btn-primary">
+
+                    Predict Now
+
+                </a>
+
+                <a href="#" class="btn-secondary">
+
+                    Learn More
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-right">
+        <img src="{{ url_for('static', filename='images/books.svg') }}"
+         alt="Student Illustration">
+</div>
+
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="features">
+
+        <h2>
+
+            Why Choose EduPredict AI?
+
+        </h2>
+
+        <div class="feature-container">
+
+            <div class="card">
+
+                <i class="fa-solid fa-brain"></i>
+
+                <h3>
+
+                    Machine Learning
+
+                </h3>
+
+                <p>
+
+                    Predict mathematics scores using a trained
+                    Linear Regression model.
+
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <h3>
+
+                    Accurate Prediction
+
+                </h3>
+
+                <p>
+
+                    Trained using real-world student
+                    performance data.
+
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-bolt"></i>
+
+                <h3>
+
+                    Instant Results
+
+                </h3>
+
+                <p>
+
+                    Get predictions in seconds through
+                    a clean web interface.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section class="steps">
+
+        <h2>
+
+            How It Works
+
+        </h2>
+
+        <div class="steps-container">
+
+            <div class="step">
+
+                <span>1</span>
+
+                <h3>
+
+                    Enter Student Details
+
+                </h3>
+
+            </div>
+
+            <div class="step">
+
+                <span>2</span>
+
+                <h3>
+
+                    Machine Learning Model Predicts
+
+                </h3>
+
+            </div>
+
+            <div class="step">
+
+                <span>3</span>
+
+                <h3>
+
+                    View Predicted Math Score
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta">
+
+        <h2>
+
+            Ready to Predict Student Performance?
+
+        </h2>
+
+        <p>
+
+            Click below to use the prediction system.
+
+        </p>
+
+        <a href="/predictdata" class="btn-primary">
+
+            Predict Student Score
+
+        </a>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+
+            © 2026 EduPredict AI
+
+            |
+
+            Built with Flask & Machine Learning
+
+        </p>
+
+    </footer>
+
+</body>
+</html>

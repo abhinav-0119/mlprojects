@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Predict Student Score</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            EduPredict AI
+
+        </div>
+
+        <ul class="nav-links">
+
+            <li><a href="/">Home</a></li>
+
+            <li><a href="/predictdata">Predict</a></li>
+
+            <li><a href="/about">About</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- Main Section -->
+
+    <section class="prediction-section">
+
+        <div class="prediction-container">
+
+            <!-- Left Card -->
+
+            <div class="form-card">
+
+                <h2>
+
+                    Student Information
+
+                </h2>
+
+                <p>
+
+                    Fill in the student's details below.
+
+                </p>
+
+                <form action="/predictdata" method="POST">
+
+                    <!-- Gender -->
+
+                    <label>Gender</label>
+
+                    <select name="gender" required>
+
+                        <option value="">Select</option>
+
+                        <option value="male">Male</option>
+
+                        <option value="female">Female</option>
+
+                    </select>
+
+                    <!-- Ethnicity -->
+
+                    <label>Race / Ethnicity</label>
+
+                    <select name="ethnicity" required>
+
+                        <option value="">Select</option>
+
+                        <option value="group A">Group A</option>
+
+                        <option value="group B">Group B</option>
+
+                        <option value="group C">Group C</option>
+
+                        <option value="group D">Group D</option>
+
+                        <option value="group E">Group E</option>
+
+                    </select>
+
+                    <!-- Education -->
+
+                    <label>Parental Level of Education</label>
+
+                    <select name="parental_level_of_education" required>
+
+                        <option value="">Select</option>
+
+                        <option value="associate's degree">Associate's Degree</option>
+
+                        <option value="bachelor's degree">Bachelor's Degree</option>
+
+                        <option value="high school">High School</option>
+
+                        <option value="master's degree">Master's Degree</option>
+
+                        <option value="some college">Some College</option>
+
+                        <option value="some high school">Some High School</option>
+
+                    </select>
+
+                    <!-- Lunch -->
+
+                    <label>Lunch</label>
+
+                    <select name="lunch" required>
+
+                        <option value="">Select</option>
+
+                        <option value="standard">Standard</option>
+
+                        <option value="free/reduced">Free / Reduced</option>
+
+                    </select>
+
+                    <!-- Test Preparation -->
+
+                    <label>Test Preparation Course</label>
+
+                    <select name="test_preparation_course" required>
+
+                        <option value="">Select</option>
+
+                        <option value="completed">Completed</option>
+
+                        <option value="none">None</option>
+
+                    </select>
+
+                    <!-- Reading -->
+
+                    <label>Reading Score</label>
+
+                    <input type="number"
+                           name="reading_score"
+                           min="0"
+                           max="100"
+                           placeholder="Enter Reading Score"
+                           required>
+
+                    <!-- Writing -->
+
+                    <label>Writing Score</label>
+
+                    <input type="number"
+                           name="writing_score"
+                           min="0"
+                           max="100"
+                           placeholder="Enter Writing Score"
+                           required>
+
+                    <button type="submit">
+
+                        Predict Math Score
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- Right Card -->
+
+            <div class="result-card">
+
+                <h2>
+
+                    Prediction Result
+
+                </h2>
+
+                {% if results %}
+
+                <div class="score">
+
+                    {{ "%.2f"|format(results) }}
+
+                </div>
+
+                <p>
+
+                    Predicted Mathematics Score
+
+                </p>
+
+                {% if results >= 80 %}
+
+                <span class="excellent">
+
+                    Excellent Performance 🎉
+
+                </span>
+
+                {% elif results >= 60 %}
+
+                <span class="good">
+
+                    Good Performance 👍
+
+                </span>
+
+                {% elif results >= 40 %}
+
+                <span class="average">
+
+                    Average Performance 📚
+
+                </span>
+
+                {% else %}
+
+                <span class="poor">
+
+                    Needs Improvement 📖
+
+                </span>
+
+                {% endif %}
+
+                {% else %}
+
+                <div class="placeholder">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <p>
+
+                        Your prediction will appear here.
+
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+
+            © 2026 EduPredict AI
+
+            | Student Performance Prediction using Machine Learning
+
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
