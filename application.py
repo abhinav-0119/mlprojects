@@ -5,7 +5,8 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from src.pipelines.predict_pipeline import CustomData,Predict
 
-application=Flask(__name__)
+app=Flask(__name__)
+application=app
 
 @app.route('/')
 def index():
