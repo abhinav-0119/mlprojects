@@ -1,7 +1,6 @@
 import os
 import sys
 from dataclasses import dataclass
-
 from catboost import CatBoostRegressor
 from sklearn.ensemble import (
     AdaBoostRegressor,
@@ -29,7 +28,6 @@ from src.components.data_transformation import DataTransformationconfig
 @dataclass
 class ModelTrainerConfig:
     trained_model_filepath=os.path.join('artifacts','model.pkl')
-
 class ModelTrainer:
     def __init__(self):
         self.model_trainer_config=ModelTrainerConfig()
@@ -88,7 +86,6 @@ class ModelTrainer:
                 }
                 
             }
-
             model_report=evaluate_models(X_train=x_train,y_train=y_train,X_test=x_test,y_test=y_test,models=models,param=params)
             best_model_score=max(list(model_report.values()))
             best_model_name = list(model_report.keys())[
@@ -98,29 +95,20 @@ class ModelTrainer:
             if best_model_score<0.6:
                 raise CustomException("NO BEST MODEL FOUND")
             logging.info("Best model has been selected based on r2 score")
-
             save_object(
-
                 file_path=self.model_trainer_config.trained_model_filepath,
                 obj=best_model
             )
             predicted=best_model.predict(x_test)
-
             r2score=r2_score(y_test,predicted)
-
             return r2score
-
         except Exception as e:
             raise CustomException(e,sys)
-        
-
 if __name__=='__main__':
     obj=DataIngestion()
     train_data,test_data=obj.initiate_data_ingestion()
-
     obj2=DataTransformation()
     train_arr,test_arr,_=obj2.initiate_data_transformation(train_data,test_data)
-
     obj3=ModelTrainer()
     score=obj3.initiate_modeltrainer(train_arr,test_arr,_)
     print(score)

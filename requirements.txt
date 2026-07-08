@@ -1,8 +1,8 @@
-numpy
+﻿flask
 pandas
+numpy
 seaborn
 matplotlib
-xgboost
+scikit-learn
 catboost
-gunicorn
-flask
+xgboost

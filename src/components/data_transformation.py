@@ -1,27 +1,22 @@
+# In this file you have to first create preprocessor and save it in get transformer function
+# then use that preprocessor to tranform the data(trainig as well as testing)
 import os
 import sys
 from dataclasses import dataclass
-
 import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
-
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object
-
 from src.components.data_ingestion import DataIngestionConfig
 from src.components.data_ingestion import DataIngestion
-
-
-
 @dataclass
 class DataTransformationconfig:
     preprocessor_obj_file_path: str=os.path.join("artifacts","preprocessor.pkl")
-
 class DataTransformation:
     def __init__(self):
         self.data_transformation_config=DataTransformationconfig()
@@ -48,10 +43,8 @@ class DataTransformation:
                 ("scaler",StandardScaler(with_mean=False))
                 ]
             )
-
             logging.info(f"Categorical Column,{categorical_column} is completed")
             logging.info(f"Numerical Column,{numerical_column} is completed")
-
             preprocessor=ColumnTransformer(
                 [
                 ("num_pipeline",num_pipeline,numerical_column),
@@ -59,62 +52,65 @@ class DataTransformation:
                 ]
             )
             return preprocessor
-            
         except Exception as e:
             raise CustomException(e,sys)
     def initiate_data_transformation(self,train_path,test_path):
         try:
             train_df=pd.read_csv(train_path)
             test_df=pd.read_csv(test_path)
-
             logging.info("READING OF TRAINING AND TESTING DATA IS COMPLETED")
-
             preprocessing_obj=self.get_data_transformer()
-
             target_column_name="math_score"
             numerical_columns = ["writing_score", "reading_score"]
-
             input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
-
             input_feature_test_df=test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df=test_df[target_column_name]
-
             logging.info("APPLYING PREPROCESSING OBJECT ON TRAIN AND TEST DATAFRAME IS COMPLETED")
-
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
-
-
             train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
-
             logging.info(f"Saved preprocessing object.")
-
             save_object(
-
                 file_path=self.data_transformation_config.preprocessor_obj_file_path,
                 obj=preprocessing_obj
-
             )
-
             return (
                 train_arr,
                 test_arr,
                 self.data_transformation_config.preprocessor_obj_file_path,
             )
-
-
         except Exception as e:
             raise CustomException(e,sys)
-
-
 if __name__=='__main__':
     obj=DataIngestion()
     train_data,test_data=obj.initiate_data_ingestion()
 
     obj2=DataTransformation()
     obj2.initiate_data_transformation(train_data,test_data)
+
+
+'''`SimpleImputer` is a preprocessing tool in Scikit-learn that is used to handle 
+missing values in a dataset. Since most machine learning algorithms cannot work with 
+missing (`NaN`) values, `SimpleImputer` replaces them using a specified strategy such
+ as the **mean**, **median**, **most frequent value**, or a **constant**. During the 
+ `fit()` step, it learns the replacement value from the training data, and during the 
+ `transform()` step, it fills in the missing values using that learned 
+ value. This ensures the dataset is complete and ready for 
+ further processing.
+
+A `Pipeline` is a Scikit-learn utility that combines multiple preprocessing steps 
+into a single workflow. Instead of applying each operation 
+separately—such as handling missing values, encoding categorical 
+variables, and scaling numerical features—a pipeline executes 
+these steps sequentially with a single call to `fit()`, `transform()`, 
+or `fit_transform()`. This makes the code cleaner, easier to maintain, 
+and ensures that the exact same preprocessing steps are applied during 
+both model training and prediction, reducing the chances of errors and 
+data leakage.
+
+'''
 
 
 
