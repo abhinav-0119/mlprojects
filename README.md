@@ -13,7 +13,9 @@
 ![Model Training](screenshots/home4.png)
 
 ## PREDICTION
-![Project Structure](screenshots/predict 1.png)
+![Home Page](screenshots/predict 1.png)
+
+
 ## ABOUT
 ![Home Page](screenshots/about1.png)
 
